@@ -271,3 +271,8 @@ Please refer to the guide at the [official community plugin manifest repository]
 ### Manual File Distribution
 
 In addition to the offical distribution, you can also simply distribute your plugin by sharing the compiled file(s). To use the plugin the user has to copy the files into the folder at `%localappdata%\NINA\Plugins`
+
+## Template License
+
+In order to make work with the template easy, the template project is using [the Unlicense](https://unlicense.org/) and is therefore part of the public domain.
+I dedicate any and all copyright interest in this plugin template to the public domain. I make this dedication for the benefit of the public at large and to the detriment of my heirs and successors. I intend this dedication to be an overt act of relinquishment in perpetuity of all present and future rights to this software under copyright law. 

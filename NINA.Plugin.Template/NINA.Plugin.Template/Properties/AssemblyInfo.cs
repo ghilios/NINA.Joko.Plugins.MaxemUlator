@@ -22,7 +22,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("MyCompanyOrName")]
 // The product name that this plugin is part of
 [assembly: AssemblyProduct("MyPluginProduct")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
+[assembly: AssemblyCopyright("")]
 
 // The minimum Version of N.I.N.A. that this plugin is compatible with
 [assembly: AssemblyMetadata("MinimumApplicationVersion", "1.11.0.1104")]
