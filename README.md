@@ -112,6 +112,10 @@ The interface that defines the *plugin meta data*. Each plugin requires an expor
 
 *Defines a dockable panel for the imaging tab*
 
+### IPluggableBehavior
+
+*An interface used to exchange functionality for certain operations in N.I.N.A. - currently it is possible to exchange IStarDetection, IStarAnnotator and IAutoFocusVMFactory*
+
 ## Available Base Classes
 
 The N.I.N.A. packages provide a set of base classes that can be inherited from, that will already handle most of the boilerplate required for the exportable interfaces.  
@@ -176,6 +180,12 @@ The following interfaces can be injected:
         - *IList&lt;IDateTimeProvider&gt;*: A list of providers to get DateTimes for various astronomical events like dusk/dawn/meridian etc.  
         - *IPlateSolverFactory*: A factory to create plate solver instances
         - *IWindowServiceFactory*: A service to create IWindowService instances
+        - *IDomeFollower*: Interaction with the dome and telescope for the dome to follow or not follow the scope
+        - *IPluggableBehaviorSelector<IStarDetection>*: This is used to select different behaviors for star detection
+        - *IPluggableBehaviorSelector<IStarAnnotator>*: This is used to select different behaviors for star annotation
+        - *IImageDataFactory*: A factory to create Image Data
+        - *IMeridianFlipVMFactory*: A factory to create a meridian flip viewmodel instance
+        - *IAutoFocusVMFactory*: A factory to create an autofocus viewmodel instance
 
 Example:
 
