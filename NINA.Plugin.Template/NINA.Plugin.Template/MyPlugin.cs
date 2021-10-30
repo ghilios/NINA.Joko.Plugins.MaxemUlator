@@ -1,4 +1,5 @@
 ﻿using MyPlugin.Properties;
+using NINA.Core.Utility;
 using NINA.Plugin;
 using NINA.Plugin.Interfaces;
 using System;
@@ -24,7 +25,7 @@ namespace MyPluginNamespace {
             if (Settings.Default.UpdateSettings) {
                 Settings.Default.Upgrade();
                 Settings.Default.UpdateSettings = false;
-                Settings.Default.Save();
+                CoreUtil.SaveSettings(Settings.Default);
             }
         }
 
@@ -34,7 +35,7 @@ namespace MyPluginNamespace {
             }
             set {
                 Settings.Default.DefaultNotificationMessage = value;
-                Settings.Default.Save();
+                CoreUtil.SaveSettings(Settings.Default);
             }
         }
     }
