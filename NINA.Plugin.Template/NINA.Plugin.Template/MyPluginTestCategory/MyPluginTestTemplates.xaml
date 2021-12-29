@@ -16,7 +16,7 @@
     <!--  The definition of the plugin test instruction style  -->
     <!--  The DataType has to be defined as the instruction in context  -->
     <DataTemplate DataType="{x:Type local:MyPluginTestInstruction}">
-        <nina:SequenceBlockView DataContext="{Binding}">
+        <nina:SequenceBlockView>
             <nina:SequenceBlockView.SequenceItemContent>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center" Text="Notification Message" />
@@ -50,7 +50,7 @@
     <!--  The definition of the plugin test condition style  -->
     <!--  The DataType has to be defined as the instruction in context  -->
     <DataTemplate DataType="{x:Type local:MyPluginTestCondition}">
-        <nina:SequenceBlockView DataContext="{Binding}">
+        <nina:SequenceBlockView>
             <nina:SequenceBlockView.SequenceItemContent>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center" Text="Is truthy" />

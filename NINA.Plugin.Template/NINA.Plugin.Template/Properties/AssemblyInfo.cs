@@ -25,7 +25,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("")]
 
 // The minimum Version of N.I.N.A. that this plugin is compatible with
-[assembly: AssemblyMetadata("MinimumApplicationVersion", "1.11.0.1173")]
+[assembly: AssemblyMetadata("MinimumApplicationVersion", "2.0.0.2020")]
 
 // The license your plugin code is using
 [assembly: AssemblyMetadata("License", "MPL-2.0")]

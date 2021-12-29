@@ -2,12 +2,17 @@
 using NINA.Core.Utility;
 using NINA.Plugin;
 using NINA.Plugin.Interfaces;
+using NINA.Profile;
+using NINA.Profile.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Settings = MyPlugin.Properties.Settings;
 
 namespace MyPluginNamespace {
     /// <summary>
@@ -18,15 +23,34 @@ namespace MyPluginNamespace {
     /// The user interface for the settings will be defined by a DataTemplate with the key having the naming convention "<MyPlugin.Name>_Options" where MyPlugin.Name corresponds to the AssemblyTitle - In this template example it is found in the Options.xaml
     /// </summary>
     [Export(typeof(IPluginManifest))]
-    public class MyPlugin : PluginBase {
+    public class MyPlugin : PluginBase, INotifyPropertyChanged {
+        private IPluginOptionsAccessor pluginSettings;
+        private IProfileService profileService;
 
         [ImportingConstructor]
-        public MyPlugin() {
+        public MyPlugin(IProfileService profileService) {
             if (Settings.Default.UpdateSettings) {
                 Settings.Default.Upgrade();
                 Settings.Default.UpdateSettings = false;
                 CoreUtil.SaveSettings(Settings.Default);
             }
+            // This helper class can be used to store plugin settings that are dependent on the current profile
+            this.pluginSettings = new PluginOptionsAccessor(profileService, Guid.Parse(this.Identifier));
+            this.profileService = profileService;
+
+            // React on a changed profile
+            profileService.ProfileChanged += ProfileService_ProfileChanged;
+        }
+
+        public override Task Teardown() {
+            // Make sure to unregister an event when the object is no longer in use. Otherwise garbage collection will be prevented.
+            profileService.ProfileChanged -= ProfileService_ProfileChanged;
+            return base.Teardown();
+        }
+
+        private void ProfileService_ProfileChanged(object sender, EventArgs e) {
+            // Rase the event that this profile specific value has been changed due to the profile switch
+            RaisePropertyChanged(nameof(ProfileSpecificNotificationMessage));
         }
 
         public string DefaultNotificationMessage {
@@ -36,7 +60,23 @@ namespace MyPluginNamespace {
             set {
                 Settings.Default.DefaultNotificationMessage = value;
                 CoreUtil.SaveSettings(Settings.Default);
+                RaisePropertyChanged();
             }
+        }
+
+        public string ProfileSpecificNotificationMessage {
+            get {
+                return pluginSettings.GetValueString(nameof(ProfileSpecificNotificationMessage), string.Empty);
+            }
+            set {
+                pluginSettings.SetValueString(nameof(ProfileSpecificNotificationMessage), value);
+                RaisePropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null) {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
